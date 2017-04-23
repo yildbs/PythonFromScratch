@@ -10,6 +10,7 @@ class MyData:
         self._data_label = []
         self._shape = 0
         self._batch_count = 0
+        self._num_label = 2
 
     def clear(self):
         self._data_image.clear()
@@ -17,6 +18,9 @@ class MyData:
         self._is_gray_image = True
         self._shape = 0
         self._batch_count = 0
+
+    def set_num_label(self, value):
+        self._num_label = value
 
     def images(self):
         return self._data_image[0:-1]
@@ -42,21 +46,22 @@ class MyData:
         self._shape = image.shape
 
         reshaped = np.reshape(image, (image.size))
-        label_one_hot =  np.zeros([10])
+        label_one_hot =  np.zeros([self._num_label])
         label_one_hot[int(label)] = 1
 
         self._data_image.append(np.asarray(reshaped))
         self._data_label.append(np.asarray(label_one_hot))
 
     def next_batch(self, batch_size):
-        if self._batch_count >= len(self._data_image):
-            return None, None
+        #if self._batch_count >= len(self._data_image):
+        #    return None, None
 
         start = self._batch_count
         end = start + batch_size
-
-        if end > len(self._data_image):
-           end = len(self._data_image)
-
         self._batch_count = end
+
+        if end >= len(self._data_image):
+            end = len(self._data_image)
+            self.reset()
+
         return self._data_image[start:end], self._data_label[start:end]

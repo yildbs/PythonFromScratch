@@ -1,10 +1,11 @@
 import read_image_to_batch
 import tensorflow as tf
-
+import math
 #from tensorflow.examples.tutorials.mnist import input_data
 #mnist = input_data.read_data_sets("../Data/MNIST_data/", one_hot=True)
 
 train_data = read_image_to_batch.MyData()
+train_data.set_num_label(10)
 prefix = '../Data/MNIST_data_raw/'
 #Add train image to train_data
 with open(prefix+'label_train.txt','r') as file_list:
@@ -14,6 +15,7 @@ with open(prefix+'label_train.txt','r') as file_list:
 
 #Add test image to test_data
 test_data = read_image_to_batch.MyData()
+test_data.set_num_label(10)
 with open(prefix+'label_test.txt','r') as file_list:
     for line in file_list:
         path, label = line.split()
@@ -61,14 +63,14 @@ batch_size = 20
 for epoch in range(training_epochs):
     avg_cost = 0
 
-    my_total_batch = (int)(train_data.size() / batch_size) + 1
+    my_total_batch = (int)(math.ceil(train_data.size() / batch_size))
 
     for i in range(my_total_batch):
         my_batch_xs, my_batch_ys = train_data.next_batch(batch_size)
 
-        if my_batch_xs is None:
-            train_data.reset()
-            break
+        #if my_batch_xs is None:
+        #   train_data.reset()
+        #   break
 
         c, _ = sess.run([cost, optimizer], feed_dict={X: my_batch_xs, Y: my_batch_ys})
         avg_cost += c
