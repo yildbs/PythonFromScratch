@@ -19,6 +19,7 @@ class MyData:
         self._shape = 0
         self._batch_count = 0
 
+
     def set_num_label(self, value):
         self._num_label = value
 
@@ -37,20 +38,22 @@ class MyData:
     def is_gray_image(self, value):
         self._is_gray_image = value
 
-    def add_image_path_to_list(self, image_path, label):
+    def add_image_path_to_list(self, image_paths, labels):
         #image = misc.imread(image_path, False, 'RGB')
         #if self._is_gray_image:
 #            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        image = misc.imread(image_path, True, 'F')
-        image = image / 255.
-        self._shape = image.shape
 
-        reshaped = np.reshape(image, (image.size))
-        label_one_hot =  np.zeros([self._num_label])
-        label_one_hot[int(label)] = 1
+        for image_path in image_paths:
+            image = misc.imread(image_path, True, 'F')
+            image = image / 255.
+            self._shape = image.shape
+            reshaped = np.reshape(image, (image.size))
+            self._data_image.append(np.asarray(reshaped))
 
-        self._data_image.append(np.asarray(reshaped))
-        self._data_label.append(np.asarray(label_one_hot))
+        for label in labels:
+            label_one_hot =  np.zeros([self._num_label])
+            label_one_hot[int(label)] = 1
+            self._data_label.append(np.asarray(label_one_hot))
 
     def next_batch(self, batch_size):
         #if self._batch_count >= len(self._data_image):
