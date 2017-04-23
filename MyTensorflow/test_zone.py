@@ -13,9 +13,8 @@ print(batch_ys.shape)
 print(type(batch_ys))
 '''
 
+'''
 import math
-
-
 batch_size = 20
 data_size = 20020
 
@@ -23,6 +22,6 @@ total_batch = (int)(data_size / batch_size)
 total_batch2 = math.ceil(data_size / batch_size)
 print(total_batch)
 print(total_batch2)
-
+'''
 
 

@@ -68,10 +68,6 @@ for epoch in range(training_epochs):
     for i in range(my_total_batch):
         my_batch_xs, my_batch_ys = train_data.next_batch(batch_size)
 
-        #if my_batch_xs is None:
-        #   train_data.reset()
-        #   break
-
         c, _ = sess.run([cost, optimizer], feed_dict={X: my_batch_xs, Y: my_batch_ys})
         avg_cost += c
 
