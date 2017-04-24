@@ -48,11 +48,11 @@ print('L2.shape : ',L2.shape)
 L2 = tf.nn.relu(L2)
 print('L2.shape : ',L2.shape)
 
-L2 = tf.reshape(L2, [-1, 7*7*64])
+L2 = tf.reshape(L2, [-1, 40*24*64])
 print('L2.shape : ',L2.shape)
 
-W3 = tf.Variable(tf.random_normal([7 * 7 * 64, 10], stddev=0.01))
-b = tf.Variable(tf.random_normal([10], stddev=0.01))
+W3 = tf.Variable(tf.random_normal([40*24*64, 2], stddev=0.01))
+b = tf.Variable(tf.random_normal([2], stddev=0.01))
 logits = tf.matmul(L2, W3) + b
 print('logits.shape : ',logits.shape)
 
@@ -86,9 +86,10 @@ print('Test start!')
 
 import random
 
+'''
 # Test model and check accuracy
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(Y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 feed_dict={X: test_data.images() , Y: test_data.labels()}
 print('Accuracy:', sess.run(accuracy, feed_dict=feed_dict))
-
+'''
