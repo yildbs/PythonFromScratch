@@ -9,18 +9,26 @@ train_data.set_num_label(10)
 prefix = '../Data/MNIST_data_raw/'
 #Add train image to train_data
 with open(prefix+'label_train.txt','r') as file_list:
+    paths = []
+    labels = []
     for line in file_list:
         path, label = line.split()
-        train_data.add_image_path_to_list(prefix+path, label)
+        paths.append(prefix+path)
+        labels.append(label)
+        #train_data.add_image_path_to_list(prefix+path, label)
+    train_data.add_image_path_to_list(paths, labels)
 
 #Add test image to test_data
 test_data = read_image_to_batch.MyData()
 test_data.set_num_label(10)
 with open(prefix+'label_test.txt','r') as file_list:
+    paths = []
+    labels = []
     for line in file_list:
         path, label = line.split()
-        test_data.add_image_path_to_list(prefix+path, label)
-
+        paths.append(prefix+path)
+        labels.append(label)
+    test_data.add_image_path_to_list(paths, labels)
 
 X = tf.placeholder(tf.float32, [None, 28*28])
 X_img = tf.reshape(X, [-1, 28, 28, 1])
@@ -75,7 +83,7 @@ for epoch in range(training_epochs):
 
 print('Learning Finished!')
 
-train_data.clear()
+#train_data.clear()
 
 print('Test start!')
 

@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/__5_1_explain_dataset" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WebCrawling" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MyTensorflow" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MyReversi" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
