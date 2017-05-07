@@ -2,14 +2,17 @@ import pygame
 import board
 import time
 
-reversi = board.Board(100)
+if __name__=="__main__":
+    reversi = board.Board(100, 8)
+    reversi.draw()
 
-reversi.draw()
+    while True:
 
-while True:
-    events = pygame.event.get()
+        reversi.make_candidate()
 
-    for event in events:
-        if event.type == pygame.MOUSEBUTTONUP:
-            x, y = pygame.mouse.get_pos()
-            reversi.click_event(x, y)
+        events = pygame.event.get()
+
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONUP:
+                x, y = pygame.mouse.get_pos()
+                reversi.click_event(x, y)
